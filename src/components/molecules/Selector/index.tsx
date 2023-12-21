@@ -1,40 +1,50 @@
 import Frame from "@/components/atoms/Frame";
 import PowerStats from "@/components/atoms/PowerStats";
-import { IPowerStats, Stats } from "@/interfaces/PowerStats";
+import { IMetahuman } from "@/interfaces/Metahuman";
+import { TPowerStats } from "@/interfaces/PowerStats";
 import { selectorTheme } from "@/themes/Selector.theme";
 import {
   powerStateColorPicker,
   powerStateIconPicker,
 } from "@/utils/PowerState.utils";
 import { Box, Grid, ThemeProvider, Typography } from "@mui/material";
-import { StaticImageData } from "next/image";
 
 interface IProps {
-  data?: {
-    title: string;
-    image: string | StaticImageData;
-    powerStats: IPowerStats[];
-  };
+  selectorId: 0 | 1;
+  metahuman: IMetahuman | null;
   reverse?: boolean;
 }
 
-export default function Selector({ data, reverse }: IProps) {
+export default function Selector({ selectorId, metahuman, reverse }: IProps) {
   function renderPowerStats() {
-    if (data) {
-      return data.powerStats.map((powerStat) => (
+    if (metahuman) {
+      const displayedPowerstats: TPowerStats[] = [
+        "Intelligence",
+        "Strength",
+        "Speed",
+        "Durability",
+        "Power",
+        "Combat",
+      ];
+      return displayedPowerstats.map((powerStat) => (
         <PowerStats
-          key={powerStat.label}
+          key={powerStat}
           color={
             powerStateColorPicker[
-              powerStat.label.toLowerCase() as keyof typeof powerStateColorPicker
+              powerStat.toLowerCase() as keyof typeof powerStateColorPicker
             ]
           }
           icon={
             powerStateIconPicker[
-              powerStat.label.toLowerCase() as keyof typeof powerStateColorPicker
+              powerStat.toLowerCase() as keyof typeof powerStateColorPicker
             ]
           }
-          {...powerStat}
+          label={powerStat}
+          value={
+            metahuman.powerstats[
+              powerStat.toLowerCase() as keyof typeof metahuman.powerstats
+            ]
+          }
         />
       ));
     }
@@ -53,7 +63,7 @@ export default function Selector({ data, reverse }: IProps) {
               key.toLowerCase() as keyof typeof powerStateColorPicker
             ]
           }
-          label={key as Stats}
+          label={key as TPowerStats}
           value={0}
         />
       );
@@ -83,9 +93,9 @@ export default function Selector({ data, reverse }: IProps) {
             flexDirection: "column",
           }}
         >
-          <Frame image={data?.image} active={Boolean(data)} />
+          <Frame image={metahuman?.images["md"]} selectorId={selectorId} />
           <Typography variant="h6" component="p">
-            {data?.title || ""}
+            {metahuman?.name || ""}
           </Typography>
         </Box>
         <Grid

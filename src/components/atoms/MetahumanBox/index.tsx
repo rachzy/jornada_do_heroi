@@ -1,15 +1,22 @@
-import { Stats } from "@/interfaces/PowerStats";
+import { TPowerStats } from "@/interfaces/PowerStats";
 import classes from "./MetahumanBox.module.css";
 
 import { IMetahuman } from "@/interfaces/Metahuman";
 import { metahumanTheme } from "@/themes/Metahuman.theme";
 import { powerStateIconPicker } from "@/utils/PowerState.utils";
 import { Box, Card, Grid, ThemeProvider, Typography } from "@mui/material";
+import { metahumans } from "@/components/organisms/Metahumans";
+import { useSelectorStore } from "@/lib/zustand/selector/store";
+import Image from "next/image";
 
 export default function MetahumanBox({ metahuman }: { metahuman: IMetahuman }) {
-  const { name, images, powerstats } = metahuman;
+  const { id, name, images, powerstats } = metahuman;
 
-  const statsToBeDisplayed: Stats[] = [
+  const setMetahuman = useSelectorStore((state) => state.setSelectedMetahuman);
+  const toggleSelector = useSelectorStore((state) => state.toggleSelector);
+  const currentSelector = useSelectorStore((state) => state.currentSelector);
+
+  const statsToBeDisplayed: TPowerStats[] = [
     "Durability",
     "Power",
     "Speed",
@@ -40,23 +47,19 @@ export default function MetahumanBox({ metahuman }: { metahuman: IMetahuman }) {
     ));
   }
 
+  function handleClick() {
+    const newMetahuman = metahumans.find((mh) => mh.id === id);
+    setMetahuman(newMetahuman!);
+
+    if(currentSelector === 1) return;
+    toggleSelector();
+  }
+
   return (
-    <Grid item xs={12} sm={6} md={3} padding={1}>
+    <Grid item xs={12} sm={6} md={3} padding={1} onClick={handleClick}>
       <ThemeProvider theme={metahumanTheme}>
         <Card className={classes.metahuman}>
-          <Box
-            component="img"
-            sx={{
-              content: {
-                xs: `url(${images.xs})`,
-                sm: `url(${images.sm})`,
-                md: `url(${images.md})`,
-                lg: `url(${images.lg})`,
-              },
-            }}
-            alt="metahuman"
-            margin={"auto"}
-          />
+          <Image src={images.md} alt="" width={120} height={150} sx={{margin: "auto"}} />
           <Typography variant="h5">{name}</Typography>
           <Grid container rowGap={1} marginY={2}>
             {renderStats()}

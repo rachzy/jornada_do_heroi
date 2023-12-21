@@ -1,6 +1,6 @@
-export type Stats = "Intelligence" | "Strength" | "Speed" | "Durability" | "Power" | "Combat";
+export type TPowerStats = "Intelligence" | "Strength" | "Speed" | "Durability" | "Power" | "Combat";
 
 export interface IPowerStats {
-    label: Stats;
+    label: TPowerStats;
     value: number;
 }

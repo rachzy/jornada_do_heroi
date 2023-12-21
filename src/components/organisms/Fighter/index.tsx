@@ -6,8 +6,10 @@ import Versus from "../../../assets/versus.png";
 
 import Image from "next/image";
 import { fighterTheme } from "@/themes/Fighter.theme";
+import { useSelectorStore } from "@/lib/zustand/selector/store";
 
 export default function Fighter() {
+  const selectedMetahumans = useSelectorStore((state) => state.selectedMetahumans);
   return (
     <ThemeProvider theme={fighterTheme}>
       <Box
@@ -26,22 +28,9 @@ export default function Fighter() {
             rowGap: { xs: 10, sm: 3 },
           }}
         >
-          <Selector
-            data={{
-              title: "Saitama",
-              image: Saitama,
-              powerStats: [
-                { label: "Intelligence", value: 100 },
-                { label: "Strength", value: 100 },
-                { label: "Speed", value: 100 },
-                { label: "Durability", value: 100 },
-                { label: "Power", value: 100 },
-                { label: "Combat", value: 100 },
-              ],
-            }}
-          />
+          <Selector selectorId={0} metahuman={selectedMetahumans[0]} />
           <Image src={Versus} alt="versus" width={128} />
-          <Selector reverse />
+          <Selector selectorId={1} metahuman={selectedMetahumans[1]} reverse />
         </Box>
         <Box sx={{ width: 300, maxWidth: "100%", marginY: { xs: 14, sm: 5 } }}>
           <Button variant="contained" fullWidth>
