@@ -1,6 +1,6 @@
 import Frame from "@/components/atoms/Frame";
 import PowerStats from "@/components/atoms/PowerStats";
-import { IPowerStats } from "@/interfaces/PowerStats";
+import { IPowerStats, Stats } from "@/interfaces/PowerStats";
 import { selectorTheme } from "@/themes/Selector.theme";
 import {
   powerStateColorPicker,
@@ -20,30 +20,46 @@ interface IProps {
 
 export default function Selector({ data, reverse }: IProps) {
   function renderPowerStats() {
-    return data?.powerStats.map((powerStat) => (
-      <PowerStats
-        key={powerStat.label}
-        color={powerStateColorPicker[powerStat.label.toLowerCase()]}
-        icon={powerStateIconPicker[powerStat.label.toLowerCase()]}
-        {...powerStat}
-      />
-    ));
-  }
-
-  function renderIfData() {
     if (data) {
-      return (
-        <Grid container rowGap={2}>
-          {renderPowerStats()}
-        </Grid>
-      );
+      return data.powerStats.map((powerStat) => (
+        <PowerStats
+          key={powerStat.label}
+          color={powerStateColorPicker[powerStat.label.toLowerCase() as Stats]}
+          icon={powerStateIconPicker[powerStat.label.toLowerCase()]}
+          {...powerStat}
+        />
+      ));
     }
+
+    return Object.keys(powerStateColorPicker).map((key: Stats) => {
+      return (
+        <PowerStats
+          key={key}
+          color={powerStateColorPicker[key.toLowerCase()]}
+          icon={powerStateIconPicker[key.toLowerCase()]}
+          label={key}
+          value={0}
+        />
+      );
+    });
   }
 
   return (
     <ThemeProvider theme={selectorTheme}>
       <Box
-        sx={{ display: "flex", flexDirection: reverse ? "row-reverse" : "row" }}
+        sx={{
+          display: "flex",
+          alignItems: {
+            xs: "center",
+            sm: "start",
+          },
+          flexDirection: {
+            xs: "column",
+            sm: reverse ? "row-reverse" : "row",
+          },
+          columnGap: 2,
+          rowGap: 4,
+        }}
       >
         <Box
           sx={{
@@ -56,6 +72,14 @@ export default function Selector({ data, reverse }: IProps) {
             {data?.title || ""}
           </Typography>
         </Box>
+        <Grid
+          container
+          sx={{ width: { xs: "100%", sm: 200, md: 150 } }}
+          height={200}
+          gap={1}
+        >
+          {renderPowerStats()}
+        </Grid>
       </Box>
     </ThemeProvider>
   );

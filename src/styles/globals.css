@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,500;0,700;1,400;1,700;1,900&display=swap");
 
 :root {
-  --background: #232323;
+  --background: #1a1a1a;
   --greencyan: #00ff94;
   --pink: #f16cbc;
   --orange: #ff7a00;
@@ -22,7 +22,11 @@
   color: white;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 body {
   background-color: var(--background);
-  overflow-x: none;
 }

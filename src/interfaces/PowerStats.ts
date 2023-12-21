@@ -1,4 +1,6 @@
+export type Stats = "Intelligence" | "Strength" | "Speed" | "Durability" | "Power" | "Combat";
+
 export interface IPowerStats {
-    label: "Intelligence" | "Strength" | "Speed" | "Durability" | "Power" | "Combat";
+    label: Stats;
     value: number;
 }

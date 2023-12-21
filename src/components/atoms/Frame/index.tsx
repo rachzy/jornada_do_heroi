@@ -15,7 +15,7 @@ export default function Frame({
     if (image) {
       return <Image className={classes.frame} src={image} alt="" />;
     }
-    return <Typography variant="h4">Select a metahuman...</Typography>;
+    return <Typography variant="h5">Select a metahuman...</Typography>;
   }
 
   return (

@@ -13,14 +13,14 @@ export const powerStateColorPicker = {
   speed: "#DB9E00",
   durability: "#00FF1A",
   power: "#00DBB3",
-  combat: "#DB0000",
+  combat: "#FF0505",
 };
 
 export const powerStateIconPicker = {
-  intelligence: <FaBrain />,
-  strength: <FaDumbbell />,
-  speed: <FaGaugeHigh />,
-  durability: <FaShield />,
-  power: <FaBurst />,
-  combat: <FaHandFist />,
+  intelligence: <FaBrain fill={powerStateColorPicker["intelligence"]} />,
+  strength: <FaDumbbell fill={powerStateColorPicker["strength"]} />,
+  speed: <FaGaugeHigh fill={powerStateColorPicker["speed"]} />,
+  durability: <FaShield fill={powerStateColorPicker["durability"]} />,
+  power: <FaBurst fill={powerStateColorPicker["power"]} />,
+  combat: <FaHandFist fill={powerStateColorPicker["combat"]} />,
 };

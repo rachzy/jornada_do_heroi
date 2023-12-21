@@ -8,7 +8,7 @@ export const selectorTheme = createTheme({
     h6: {
       alignSelf: "center",
       lineHeight: 0,
-      marginTop: 15,
+      marginTop: 20,
       fontWeight: 600,
       fontStyle: "italic",
       textTransform: "uppercase",

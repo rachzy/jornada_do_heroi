@@ -17,7 +17,8 @@ export default function PowerStats({ label, value, icon, color }: IProps) {
           display: "flex",
           alignItems: "center",
           backgroundColor: "rgba(217, 217, 217, 0.20)",
-          padding: 2,
+          padding: 1,
+          overflow: "hidden",
         }}
       >
         <Box display={"flex"} alignItems={"center"} flex={1}>

@@ -7,9 +7,11 @@ export const frameTheme = createTheme({
     },
   },
   typography: {
-    h4: {
+    h5: {
       fontFamily: "Poppins",
       fontWeight: 300,
+      textAlign: "center",
+      color: "rgba(255, 255, 255, 0.50)",
     },
   },
 });
