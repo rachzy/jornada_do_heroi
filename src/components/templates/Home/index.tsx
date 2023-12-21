@@ -3,6 +3,7 @@
 import Prefix from "@/components/atoms/Prefix";
 import Title from "@/components/atoms/Title";
 import Fighter from "@/components/organisms/Fighter";
+import Metahumans from "@/components/organisms/Metahumans";
 import { homeTheme } from "@/themes/Home.theme";
 import { Container, ThemeProvider } from "@mui/material";
 
@@ -14,6 +15,7 @@ export default function HomeTemplate() {
           <Prefix>Meta</Prefix>humans
         </Title>
         <Fighter />
+        <Metahumans />
       </ThemeProvider>
     </Container>
   );

@@ -24,20 +24,36 @@ export default function Selector({ data, reverse }: IProps) {
       return data.powerStats.map((powerStat) => (
         <PowerStats
           key={powerStat.label}
-          color={powerStateColorPicker[powerStat.label.toLowerCase() as Stats]}
-          icon={powerStateIconPicker[powerStat.label.toLowerCase()]}
+          color={
+            powerStateColorPicker[
+              powerStat.label.toLowerCase() as keyof typeof powerStateColorPicker
+            ]
+          }
+          icon={
+            powerStateIconPicker[
+              powerStat.label.toLowerCase() as keyof typeof powerStateColorPicker
+            ]
+          }
           {...powerStat}
         />
       ));
     }
 
-    return Object.keys(powerStateColorPicker).map((key: Stats) => {
+    return Object.keys(powerStateColorPicker).map((key) => {
       return (
         <PowerStats
           key={key}
-          color={powerStateColorPicker[key.toLowerCase()]}
-          icon={powerStateIconPicker[key.toLowerCase()]}
-          label={key}
+          color={
+            powerStateColorPicker[
+              key.toLowerCase() as keyof typeof powerStateColorPicker
+            ]
+          }
+          icon={
+            powerStateIconPicker[
+              key.toLowerCase() as keyof typeof powerStateColorPicker
+            ]
+          }
+          label={key as Stats}
           value={0}
         />
       );

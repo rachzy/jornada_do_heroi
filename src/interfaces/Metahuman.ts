@@ -1,3 +1,5 @@
+import { StaticImageData } from "next/image";
+
 export interface IMetahuman {
   id: number;
   name: string;
@@ -10,20 +12,26 @@ export interface IMetahuman {
     power: number;
     combat: number;
   };
-  appearance: {
-    gender: "Male" | "Female";
+  appearance?: {
+    gender?: "Male" | "Female";
     race: string;
-    height: Array<string>;
-    weight: Array<string>;
-    eyeColor: string;
-    hairColor: string;
+    height?: Array<string>;
+    weight?: Array<string>;
+    eyeColor?: string;
+    hairColor?: string;
   };
-  biography: {
+  biography?: {
     fullName: string;
     alterEgos: string;
     aliases: Array<string>;
     placeOfBirth: string;
     firstAppearance: string;
     publisher: string;
+  };
+  images: {
+    xs: string | StaticImageData;
+    sm: string | StaticImageData;
+    md: string | StaticImageData;
+    lg: string | StaticImageData;
   };
 }
