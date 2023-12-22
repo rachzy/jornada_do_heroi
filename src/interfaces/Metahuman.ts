@@ -28,10 +28,7 @@ export interface IMetahuman {
     firstAppearance: string;
     publisher: string;
   };
-  images: {
-    xs: string | StaticImageData;
-    sm: string | StaticImageData;
-    md: string | StaticImageData;
-    lg: string | StaticImageData;
+  image: {
+    url: string | StaticImageData;
   };
 }

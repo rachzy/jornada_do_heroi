@@ -1,17 +1,23 @@
 import { useModalStore } from "@/lib/zustand/modal/store";
 import { useSelectorStore } from "@/lib/zustand/selector/store";
-import { Backdrop, Box, Fade, Modal, ThemeProvider } from "@mui/material";
+import {
+  Backdrop,
+  Box,
+  Fade,
+  Modal,
+  ThemeProvider,
+  Typography,
+} from "@mui/material";
 import Loader from "../../atoms/Loader";
 import { modalTheme } from "@/themes/Modal.theme";
 
-import { useState } from "react";
 import ModalContainer from "@/components/atoms/ModalContainer";
 import ModalFrameBox from "@/components/atoms/ModalFrameBox";
 import ModalStats from "@/components/molecules/ModalStats";
+import ModalContent from "@/components/atoms/ModalContent";
+import ModalTitle from "@/components/atoms/ModalTitle";
 
 export default function FightModal() {
-  const [allowCustomColor, setAllowCustomColor] = useState(false);
-
   const modalActive = useModalStore((state) => state.active);
   const setModalActive = useModalStore((state) => state.setActive);
   const selectedMetahumans = useSelectorStore(
@@ -29,19 +35,18 @@ export default function FightModal() {
 
     return (
       <ModalContainer>
-        <ModalFrameBox
-          caption={selectedMetahumans[0]!.name}
-          image={selectedMetahumans[0]!.images.md}
-        />
-        <ModalStats
-          metahumans={selectedMetahumans}
-          allowCustomColor={allowCustomColor}
-          setAllowCustomColor={setAllowCustomColor}
-        />
-        <ModalFrameBox
-          caption={selectedMetahumans[1]!.name}
-          image={selectedMetahumans[1]!.images.md}
-        />
+        <ModalTitle />
+        <ModalContent>
+          <ModalFrameBox
+            caption={selectedMetahumans[0]!.name}
+            image={selectedMetahumans[0]!.image.url}
+          />
+          <ModalStats metahumans={selectedMetahumans} />
+          <ModalFrameBox
+            caption={selectedMetahumans[1]!.name}
+            image={selectedMetahumans[1]!.image.url}
+          />
+        </ModalContent>
       </ModalContainer>
     );
   }

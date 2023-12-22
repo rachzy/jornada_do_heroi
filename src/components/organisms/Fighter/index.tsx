@@ -14,6 +14,7 @@ export default function Fighter() {
     (state) => state.selectedMetahumans
   );
   const setWarnings = useSelectorStore((state) => state.setWarnings);
+  const calculateWinner = useSelectorStore((state) => state.calculateWinner);
   const setModal = useModalStore((state) => state.setActive);
 
   function handleButtonClick() {
@@ -24,6 +25,7 @@ export default function Fighter() {
 
     if (newWarningValues.includes(true)) return;
     setModal(true);
+    calculateWinner();
   }
 
   return (

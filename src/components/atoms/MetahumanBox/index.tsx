@@ -10,7 +10,7 @@ import Image from "next/image";
 import { useMetahumansStore } from "@/lib/zustand/metahumans/store";
 
 export default function MetahumanBox({ metahuman }: { metahuman: IMetahuman }) {
-  const { id, name, images, powerstats } = metahuman;
+  const { id, name, image, powerstats } = metahuman;
 
   const metahumans = useMetahumansStore((state) => state.metahumans);
   const setMetahuman = useSelectorStore((state) => state.setSelectedMetahuman);
@@ -52,6 +52,8 @@ export default function MetahumanBox({ metahuman }: { metahuman: IMetahuman }) {
     const newMetahuman = metahumans.find((mh) => mh.id === id);
     setMetahuman(newMetahuman!);
 
+    window.scrollTo(0, 0);
+    
     if (currentSelector === 1) return;
     toggleSelector();
   }
@@ -60,8 +62,10 @@ export default function MetahumanBox({ metahuman }: { metahuman: IMetahuman }) {
     <Grid item xs={12} sm={6} md={3} padding={1} onClick={handleClick}>
       <ThemeProvider theme={metahumanTheme}>
         <Card className={classes.metahuman}>
-          <Box sx={{display: "flex", justifyContent: "center", width: "100%"}}>
-            <Image src={images.md} alt="" width={130} height={200} />
+          <Box
+            sx={{ display: "flex", justifyContent: "center", width: "100%" }}
+          >
+            <Image src={image.url || ""} alt="" width={130} height={200} />
           </Box>
           <Typography variant="h5">{name}</Typography>
           <Grid container rowGap={1} marginY={2}>
