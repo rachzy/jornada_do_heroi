@@ -5,13 +5,14 @@ import { IMetahuman } from "@/interfaces/Metahuman";
 import { metahumanTheme } from "@/themes/Metahuman.theme";
 import { powerStateIconPicker } from "@/utils/PowerState.utils";
 import { Box, Card, Grid, ThemeProvider, Typography } from "@mui/material";
-import { metahumans } from "@/components/organisms/Metahumans";
 import { useSelectorStore } from "@/lib/zustand/selector/store";
 import Image from "next/image";
+import { useMetahumansStore } from "@/lib/zustand/metahumans/store";
 
 export default function MetahumanBox({ metahuman }: { metahuman: IMetahuman }) {
   const { id, name, images, powerstats } = metahuman;
 
+  const metahumans = useMetahumansStore((state) => state.metahumans);
   const setMetahuman = useSelectorStore((state) => state.setSelectedMetahuman);
   const toggleSelector = useSelectorStore((state) => state.toggleSelector);
   const currentSelector = useSelectorStore((state) => state.currentSelector);
@@ -51,7 +52,7 @@ export default function MetahumanBox({ metahuman }: { metahuman: IMetahuman }) {
     const newMetahuman = metahumans.find((mh) => mh.id === id);
     setMetahuman(newMetahuman!);
 
-    if(currentSelector === 1) return;
+    if (currentSelector === 1) return;
     toggleSelector();
   }
 
@@ -59,7 +60,9 @@ export default function MetahumanBox({ metahuman }: { metahuman: IMetahuman }) {
     <Grid item xs={12} sm={6} md={3} padding={1} onClick={handleClick}>
       <ThemeProvider theme={metahumanTheme}>
         <Card className={classes.metahuman}>
-          <Image src={images.md} alt="" width={120} height={150} sx={{margin: "auto"}} />
+          <Box sx={{display: "flex", justifyContent: "center", width: "100%"}}>
+            <Image src={images.md} alt="" width={130} height={200} />
+          </Box>
           <Typography variant="h5">{name}</Typography>
           <Grid container rowGap={1} marginY={2}>
             {renderStats()}

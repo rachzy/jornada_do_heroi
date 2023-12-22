@@ -3,8 +3,13 @@ import { IMetahuman } from "@/interfaces/Metahuman";
 
 import Saitama from "../../../assets/saitama.png";
 import MetahumanList from "@/components/molecules/MetahumanList";
+import { useMetahumansStore } from "@/lib/zustand/metahumans/store";
+import { CircularProgress } from "@mui/material";
+import { useEffect } from "react";
+import Loader from "@/components/atoms/Loader";
+import { useSearchStore } from "@/lib/zustand/search/store";
 
-export const metahumans: IMetahuman[] = [
+const dummyMetahumans: IMetahuman[] = [
   {
     id: 1,
     name: "Saitama",
@@ -112,10 +117,50 @@ export const metahumans: IMetahuman[] = [
 ];
 
 export default function Metahumans() {
+  const metahumans = useMetahumansStore((state) => state.metahumans);
+  const loading = useMetahumansStore((state) => state.loading);
+  const filteredMetahumans = useSearchStore(
+    (state) => state.filteredMetahumans
+  );
+  const searchValue = useSearchStore((state) => state.value);
+
+  const setMetahumans = useMetahumansStore((state) => state.setMetahumans);
+  const setLoading = useMetahumansStore((state) => state.setLoading);
+  const setFilteredMetahumans = useSearchStore(
+    (state) => state.setFilteredMetahumans
+  );
+  const setSearchValue = useSearchStore((state) => state.setValue);
+
+  useEffect(() => {
+    setMetahumans(dummyMetahumans);
+    setLoading(false);
+  }, [setMetahumans, setLoading]);
+
+  useEffect(() => {
+    if (!searchValue) return setFilteredMetahumans(metahumans);
+
+    const newFilteredMetahumans = metahumans.filter((metahuman) =>
+      metahuman.name.toUpperCase().includes(searchValue.toUpperCase())
+    );
+    setFilteredMetahumans(newFilteredMetahumans);
+  }, [metahumans, searchValue, setFilteredMetahumans]);
+
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { value } = e.target;
+    setSearchValue(value);
+  }
+
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <>
-      <SearchInput placeholder="Search for a metahuman..." />
-      <MetahumanList metahumans={metahumans} />
+      <SearchInput
+        placeholder="Search for a metahuman..."
+        value={searchValue}
+        onChange={handleInputChange}
+      />
+      <MetahumanList metahumans={filteredMetahumans} />
     </>
   );
 }

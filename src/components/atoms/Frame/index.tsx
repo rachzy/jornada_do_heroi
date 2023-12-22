@@ -17,7 +17,7 @@ export default function Frame({
 
   function renderImage(): JSX.Element {
     if (image) {
-      return <Image className={classes.frame} src={image} width={1080} height={1920} alt="" />;
+      return <Image className={classes.frame} src={image} width={128} height={128} alt="" />;
     }
     return <Typography variant="h5">Select a metahuman...</Typography>;
   }
