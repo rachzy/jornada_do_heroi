@@ -13,16 +13,32 @@ export default function Frame({
   image?: string | StaticImageData;
 }) {
   const currentSelectorId = useSelectorStore((state) => state.currentSelector);
+  const selectorWarnings = useSelectorStore((state) => state.warnings);
   const setSelector = useSelectorStore((state) => state.setSelector);
+  const warnings = useSelectorStore((state) => state.warnings);
+  const setWarnings = useSelectorStore((state) => state.setWarnings);
 
   function renderImage(): JSX.Element {
     if (image) {
-      return <Image className={classes.frame} src={image} width={128} height={128} alt="" />;
+      return (
+        <Image
+          className={classes.frame}
+          src={image}
+          width={128}
+          height={128}
+          alt=""
+        />
+      );
     }
     return <Typography variant="h5">Select a metahuman...</Typography>;
   }
 
   function handleClick() {
+    // Clear the warning frame
+    let newWarnings = [...warnings] as [boolean, boolean];
+    newWarnings[selectorId] = false;
+    setWarnings(newWarnings);
+
     setSelector(selectorId);
   }
 
@@ -31,7 +47,7 @@ export default function Frame({
       <div
         className={`${classes.frameBox} ${
           currentSelectorId === selectorId && classes.active
-        }`}
+        } ${selectorWarnings[selectorId] && classes.warning}`}
         onClick={handleClick}
       >
         {renderImage()}

@@ -7,9 +7,25 @@ import Versus from "../../../assets/versus.png";
 import Image from "next/image";
 import { fighterTheme } from "@/themes/Fighter.theme";
 import { useSelectorStore } from "@/lib/zustand/selector/store";
+import { useModalStore } from "@/lib/zustand/modal/store";
 
 export default function Fighter() {
-  const selectedMetahumans = useSelectorStore((state) => state.selectedMetahumans);
+  const selectedMetahumans = useSelectorStore(
+    (state) => state.selectedMetahumans
+  );
+  const setWarnings = useSelectorStore((state) => state.setWarnings);
+  const setModal = useModalStore((state) => state.setActive);
+
+  function handleButtonClick() {
+    let newWarningValues = selectedMetahumans.map(
+      (metahuman) => !Boolean(metahuman)
+    ) as [boolean, boolean];
+    setWarnings(newWarningValues);
+
+    if (newWarningValues.includes(true)) return;
+    setModal(true);
+  }
+
   return (
     <ThemeProvider theme={fighterTheme}>
       <Box
@@ -33,7 +49,7 @@ export default function Fighter() {
           <Selector selectorId={1} metahuman={selectedMetahumans[1]} reverse />
         </Box>
         <Box sx={{ width: 300, maxWidth: "100%", marginY: { xs: 14, sm: 5 } }}>
-          <Button variant="contained" fullWidth>
+          <Button variant="contained" fullWidth onClick={handleButtonClick}>
             FIGHT!
           </Button>
         </Box>
