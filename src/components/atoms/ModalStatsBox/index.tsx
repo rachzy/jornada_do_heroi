@@ -39,31 +39,23 @@ export default function ModalStatsBox({
       let color = value >= comparableValue ? "chartreuse" : "red";
 
       return (
-        <CountUp
-          key={key}
-          start={0}
-          end={value}
-          duration={3}
-          delay={0.5}
-          // In order to avoid overloading the state store, only the first element
-          // of the array will manage the calculation status
-          onStart={() => {
-            if (index === 0) setCalculationFinished(false);
-          }}
-          onEnd={() => {
-            if (index === 0) setCalculationFinished(true);
-          }}
-        >
-          {({ countUpRef }) => (
-            <Typography
-              variant={"body2"}
-              color={calculationFinished ? color : "white"}
-              ref={countUpRef}
-            >
-              {value}
-            </Typography>
-          )}
-        </CountUp>
+        <Typography key={key} variant={"body2"}>
+          <CountUp
+            start={0}
+            end={value}
+            duration={3}
+            style={{ color: calculationFinished ? color : "white" }}
+            delay={0.5}
+            // In order to avoid overloading the state store, only the first element
+            // of the array will manage the calculation status
+            onStart={() => {
+              if (index === 0) setCalculationFinished(false);
+            }}
+            onEnd={() => {
+              if (index === 0) setCalculationFinished(true);
+            }}
+          />
+        </Typography>
       );
     });
   }

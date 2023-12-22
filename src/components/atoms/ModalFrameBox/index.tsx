@@ -16,7 +16,7 @@ const frameBoxStyle: SxProps = {
 export default function ModalFrameBox({ caption: name, image }: IProps) {
   return (
     <Box sx={frameBoxStyle}>
-      <Box sx={{ display: { xs: "none", md: "block" } }}>
+      <Box sx={{ display: { xs: "none", md: "block" }, marginTop: 4, }}>
         <Image src={image} width={256} height={324} alt="metahuman" />
       </Box>
       <Typography variant={"h3"}>{name}</Typography>
