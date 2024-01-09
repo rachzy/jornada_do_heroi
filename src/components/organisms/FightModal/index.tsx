@@ -39,12 +39,12 @@ export default function FightModal() {
         <ModalContent>
           <ModalFrameBox
             caption={selectedMetahumans[0]!.name}
-            image={selectedMetahumans[0]!.image.url}
+            image={selectedMetahumans[0]!.images.md}
           />
           <ModalStats metahumans={selectedMetahumans} />
           <ModalFrameBox
             caption={selectedMetahumans[1]!.name}
-            image={selectedMetahumans[1]!.image.url}
+            image={selectedMetahumans[1]!.images.md}
           />
         </ModalContent>
       </ModalContainer>

@@ -93,7 +93,7 @@ export default function Selector({ selectorId, metahuman, reverse }: IProps) {
             flexDirection: "column",
           }}
         >
-          <Frame image={metahuman?.image.url} selectorId={selectorId} />
+          <Frame image={metahuman?.images.md} selectorId={selectorId} />
           <Typography variant="h6" component="p">
             {metahuman?.name || ""}
           </Typography>

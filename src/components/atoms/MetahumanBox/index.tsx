@@ -10,7 +10,7 @@ import Image from "next/image";
 import { useMetahumansStore } from "@/lib/zustand/metahumans/store";
 
 export default function MetahumanBox({ metahuman }: { metahuman: IMetahuman }) {
-  const { id, name, image, powerstats } = metahuman;
+  const { id, name, images: image, powerstats } = metahuman;
 
   const metahumans = useMetahumansStore((state) => state.metahumans);
   const setMetahuman = useSelectorStore((state) => state.setSelectedMetahuman);
@@ -65,7 +65,7 @@ export default function MetahumanBox({ metahuman }: { metahuman: IMetahuman }) {
           <Box
             sx={{ display: "flex", justifyContent: "center", width: "100%" }}
           >
-            <Image src={image.url || ""} alt="" width={130} height={200} />
+            <Image src={image.md || ""} alt="" width={130} height={200} />
           </Box>
           <Typography variant="h5">{name}</Typography>
           <Grid container rowGap={1} marginY={2}>
