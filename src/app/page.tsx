@@ -14,8 +14,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchMetahumans() {
       const { data } = await Axios.get(
-        `http://homologacao3.azapfy.com.br/api/ps/metahumans`,
-        { httpsAgent: { rejectUnauthorized: false } }
+        `/api`,
       );
 
       setMetahumans(data);
